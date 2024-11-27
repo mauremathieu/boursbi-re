@@ -2,6 +2,8 @@ import random
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Button
 import numpy as np
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import Image
 
 # Classe action
 class Stock:
@@ -88,6 +90,17 @@ class Market:
                          f'{stock.price:.2f}', fontsize=9, 
                          verticalalignment='bottom', horizontalalignment='center')
         
+
+        #affichage logo
+        logo_path = "logo.png"  
+        logo_image = Image.open(logo_path)
+        imagebox = OffsetImage(logo_image, zoom=0.05)   #ajuster la taille
+    
+        #placement
+        ab = AnnotationBbox(imagebox, (1, 1), frameon=False, 
+                            xycoords='axes fraction', box_alignment=(-0.1, 6.5)) #position %axes
+        self.ax.add_artist(ab)
+
         self.fig.canvas.draw_idle()  # refresh canva
         self.fig.canvas.flush_events()  # GUI update
     
